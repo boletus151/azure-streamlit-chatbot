@@ -1,0 +1,16 @@
+---
+streamlit:
+  title: "Applied AI team's bot"
+  tab_title: "LLM bot"
+  logo: "./streamlit_app/images/forks.png"
+  page_icon: "./streamlit_app/images/forks.png"
+  avatar: "./streamlit_app/images/openai.png"
+  assistant_intro_message: "Hi there :wave:, I'm an AI assistant specialiced in food. How can I help?" 
+  about: "Select your preferred interaction"
+  cook_conversation: "This is a bot that answers questions about cooking"
+  ingradients_conversation: "This is a bot that gives you ingredients for an specific food"
+variables:
+  OPENAI_API_KEY: ""
+  OPENAI_ENDOPOINT: ""
+  OPENAI_DEPLOYMENT_NAME: "chat"
+  OPENAI_API_VERSION: "2023-05-15"
