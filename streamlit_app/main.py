@@ -30,7 +30,7 @@ def sendChat(message):
 
 title = config['streamlit']['title']
 avatar = {
-    'user': None,
+    'user': "None",
     'assistant': config['streamlit']['avatar']
 }
 
@@ -81,16 +81,17 @@ def getTitleBySelectedModel(selected_model):
         return config['streamlit']['ingredients_examples']
     elif selected_model == AzureChatOpenAI:        
         return config['streamlit']['cook_conversation']
-    elif selected_model == AzureChatOpenAI:        
+    elif selected_model == AzureOpenAI:        
         return config['streamlit']['only_azureopenai']
 
 def setSelected(model):
     st.session_state.selected_model = model.split("-")[0]
     title = getTitleBySelectedModel(st.session_state.selected_model)
-    st.session_state.messages[-1]["content"] = title
-    for message in st.session_state.messages:
-        print(message)
-
+    st.session_state.messages = []
+    st.session_state.messages.append({
+        "role": "assistant", 
+        "content": title
+        })
 
 # React to user input
 if prompt := st.chat_input("Send a message"):

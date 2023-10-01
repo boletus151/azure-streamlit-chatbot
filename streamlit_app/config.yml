@@ -8,7 +8,8 @@ streamlit:
   assistant_intro_message: "Hi there :wave:, I'm an AI assistant specialiced in food. How can I help?" 
   about: "Select your preferred interaction"
   cook_conversation: "This is a bot that answers questions about cooking"
-  ingradients_conversation: "This is a bot that gives you ingredients for an specific food"
+  ingredients_examples: "This is a bot that gives you ingredients for an specific food"
+  only_azureopenai: "This is AzureOpenAi looking for ingredients for an specific food"
 variables:
   OPENAI_API_KEY: ""
   OPENAI_ENDOPOINT: ""
