@@ -1,11 +1,13 @@
 import streamlit as st
 import yaml
 from llm_bot import dummy_bot, echo_bot #contains logic for bot's response
-from langchain_prompt_examples import promptExamplesSendMessage
+from langchain_chat_prompt_examples import promptExamplesSendMessage
 from langchain_chat_prompt import cookingChatSendMessage
+from langchain_prompt import sendMessage
 
 AzureOpenAI = "AzureOpenAI"
 AzureChatOpenAI = "AzureChatOpenAI"
+AzureChatOpenAIExamples = "AzureChatOpenAIExamples"
 
 # Read config yaml file
 with open('./streamlit_app/config.yml', 'r') as file:
@@ -18,6 +20,8 @@ if "selected_model" not in st.session_state:
 
 def sendChat(message):
     if st.session_state.selected_model == AzureOpenAI:
+        return sendMessage(message)
+    elif st.session_state.selected_model == AzureChatOpenAIExamples:
         return promptExamplesSendMessage(message)
     elif st.session_state.selected_model == AzureChatOpenAI:        
         return cookingChatSendMessage(message)
@@ -46,7 +50,7 @@ st.sidebar.info(config['streamlit']['about'])
 
 method = st.sidebar.radio(
     "Choose a method",
-    [AzureOpenAI+"-Ingredients", AzureChatOpenAI+"-Cooking"],
+    [AzureChatOpenAIExamples+"-Ingredients", AzureChatOpenAI+"-Cooking", AzureOpenAI],
     index=0,
     on_change=setRadioButton,
     key="radio_id"
@@ -73,10 +77,12 @@ for message in st.session_state.messages:
 
 
 def getTitleBySelectedModel(selected_model):
-    if selected_model == AzureOpenAI:
-        return config['streamlit']['ingradients_conversation']
+    if selected_model == AzureChatOpenAIExamples:
+        return config['streamlit']['ingredients_examples']
     elif selected_model == AzureChatOpenAI:        
         return config['streamlit']['cook_conversation']
+    elif selected_model == AzureChatOpenAI:        
+        return config['streamlit']['only_azureopenai']
 
 def setSelected(model):
     st.session_state.selected_model = model.split("-")[0]

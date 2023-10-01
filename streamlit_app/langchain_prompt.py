@@ -24,29 +24,24 @@ def sendMessage(message):
         openai_api_type="azure",
         temperature=0)
     
-    preguntaString = "Quiero cocinar pollo"
-
-    if len(message) == 1 or message == "":
-        message = preguntaString
-
-    infoAdicional = "lo quiero hacer al horno"
-    promptBase = """Eres una asistente de recetas de cocina que ayuda a los usuarios a encontrar recetas de cocina.
+    infoAdicional = "Tu plato favoritos es el gazpacho"
+    promptBase = """Eres una asistente de cocina que conoce los principales ingrediente de muchas recetas de cocina. 
+    Puedes saludar y ser amable con el usuario si te pregunta como estás, te saluda o similar.
+    Puedes hacer lo siguiente:
+    Como conoces muchas recetas de cocina sabes nombrar muchos ingredientes.
+    Todo lo que esté fuera del ambito de la cocina no debes contestarlo y debes decir al usuario que no entiendes lo que te está diciendo.
     Pregunta: {pregunta}
-    InfoAdicional: {infoAdicional}
     Respuesta:"""
     
-    # Instantiation using from_template (recommended)
-    # prompt_template = PromptTemplate.from_file("./streamlit_app/prompt_templates/recipe_assistant.yml")
-     
-     # Instantiation using from_template (recommended)
     prompt_template = PromptTemplate.from_template(promptBase)
-    prompt_value = prompt_template.format(pregunta=preguntaString, infoAdicional=infoAdicional)
+    prompt_value = prompt_template.format(pregunta=message)
+    # prompt_value = prompt_template.format(pregunta=message, infoAdicional=infoAdicional)
     print(prompt_value)
 
     tokens = openai_llm.get_num_tokens(prompt_value)
     print("el numero de tokens es", tokens)
 
-    response = openai_llm.generate(prompt_value)
+    response = openai_llm(prompt_value)
     print(response)
 
     return response

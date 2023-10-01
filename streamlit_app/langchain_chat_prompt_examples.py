@@ -1,5 +1,5 @@
 import streamlit as st
-from langchain.llms import AzureOpenAI
+from langchain.chat_models import AzureChatOpenAI
 from langchain.prompts import PromptTemplate, FewShotPromptTemplate
 
 
@@ -10,7 +10,7 @@ def promptExamplesSendMessage(message):
     except:
         return "No config file found"
 
-    openai_llm = AzureOpenAI(
+    openai_llm = AzureChatOpenAI(
         openai_api_base=config['variables']['OPENAI_ENDOPOINT'],
         openai_api_version=config['variables']['OPENAI_API_VERSION'],
         deployment_name=config['variables']['OPENAI_DEPLOYMENT_NAME'],
@@ -27,8 +27,8 @@ def promptExamplesSendMessage(message):
     Todo lo que esté fuera del ambito de la cocina no debes contestarlo y debes decir al usuario que no entiendes lo que te está diciendo."""
     
     examples = [
-        { "pregunta": "Cuál es el principal ingrediente de la ensalada", "respuesta": "Una ensalada puede ser de muchos tipos pero en general suele ser la lechuga" },
-        { "pregunta": "Cuál es el principal ingrediente de la lasagna", "respuesta": "La lasaña puede ser de carne o verduras pero en general todas llevan láminas de pasta, queso y bechamel" },
+        { "pregunta": "ensalada", "respuesta": "Una ensalada puede ser de muchos tipos pero en general suele ser la lechuga" },
+        { "pregunta": "lasagna", "respuesta": "La lasaña puede ser de carne o verduras pero en general todas llevan láminas de pasta, queso y bechamel" },
         { "pregunta": "Cuál es el principal ingrediente de un postre", "respuesta": "Dependiendo del postre, pero en general todos llevan azucar" },
     ]
     examples_template = "Pregunta: {pregunta}\nRespuesta: {respuesta}\n"
@@ -50,7 +50,7 @@ def promptExamplesSendMessage(message):
     # examples_message_template = PromptTemplate.from_template(template=examples_template)
     # examples_message = examples_message_template.format(pregunta=examples[0]["pregunta"], respuesta=examples[0]["respuesta"]).to_messages()
 
-    response = openai_llm.generate(prompt_examples_value)
+    response = openai_llm(prompt_examples_value)
     
     print("Pregunta: {pregunta}".format(pregunta=preguntaString))
     print(response.content)
