@@ -1,6 +1,11 @@
 # Azure-streamlit-chatbot
+A sample demonstrating how to create a streamlit-chatbot (LLM-powered) User Interface and use Azure OpenAI for demo purposes. 
+This sample is in python and uses [Streamlit](https://streamlit.io/) to deploy a chat interface.
 
-Original repo can be found here: [streamlit_app](https://github.com/microsoft/azure-streamlit-chatbot)
+![image](./streamlit_app/images/bot.png)
+
+
+**Original repo can be found here**: [streamlit_app](https://github.com/microsoft/azure-streamlit-chatbot)
 
 ## Usage
 
